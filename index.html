@@ -6,381 +6,439 @@
     <title>AnfyenceClient 2025 - Новогодняя Версия</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/2972/2972543.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="snowflakes" aria-hidden="true"></div>
-    
-    <header class="header">
-        <div class="container">
-            <div class="logo-container">
+    <!-- Фоновые элементы -->
+    <div class="background-elements">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+        <div class="bg-gradient"></div>
+    </div>
+
+    <!-- Новогодние эффекты -->
+    <div class="snow-effect"></div>
+    <div class="confetti-effect"></div>
+
+    <!-- Главный контейнер -->
+    <div class="container">
+        <!-- Шапка -->
+        <header class="header">
+            <div class="header-content">
                 <div class="logo">
-                    <i class="fas fa-snowflake"></i>
-                    <h1>Anfyence<span class="logo-accent">Client</span></h1>
-                    <i class="fas fa-gift"></i>
-                </div>
-                <p class="tagline">Новогоднее обновление 2025</p>
-                <div class="social-header">
-                    <a href="https://t.me/AnfyenceHack" target="_blank" class="social-btn telegram">
-                        <i class="fab fa-telegram"></i> Telegram
-                    </a>
-                    <a href="https://discord.gg/wbJVMgsb" target="_blank" class="social-btn discord">
-                        <i class="fab fa-discord"></i> Discord
-                    </a>
-                </div>
-            </div>
-            
-            <div class="santa-hat">
-                <div class="hat-top"></div>
-                <div class="hat-base"></div>
-                <div class="pom-pom"></div>
-            </div>
-        </div>
-    </header>
-
-    <main class="container">
-        <section class="hero">
-            <div class="hero-content">
-                <h2 class="hero-title">AnfyenceClient <span class="year-2025">2025</span></h2>
-                <p class="hero-subtitle">Новогоднее обновление с эксклюзивными функциями для лучшего геймплея</p>
-                
-                <div class="year-badge">
-                    <span>2025</span>
-                    <div class="badge-glow"></div>
-                </div>
-                
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <i class="fas fa-users"></i>
-                        <div>
-                            <h3>50K+</h3>
-                            <p>Пользователей</p>
-                        </div>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-download"></i>
-                        <div>
-                            <h3>100K+</h3>
-                            <p>Скачиваний</p>
-                        </div>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-star"></i>
-                        <div>
-                            <h3>4.8</h3>
-                            <p>Рейтинг</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="christmas-countdown">
-                    <h3>До Нового 2025 Года осталось:</h3>
-                    <div class="countdown-timer">
-                        <div class="countdown-item">
-                            <span id="days">00</span>
-                            <p>Дней</p>
-                        </div>
-                        <div class="countdown-item">
-                            <span id="hours">00</span>
-                            <p>Часов</p>
-                        </div>
-                        <div class="countdown-item">
-                            <span id="minutes">00</span>
-                            <p>Минут</p>
-                        </div>
-                        <div class="countdown-item">
-                            <span id="seconds">00</span>
-                            <p>Секунд</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="hero-buttons">
-                    <a href="#download" class="btn btn-primary">
-                        <i class="fas fa-download"></i> Скачать бесплатно
-                    </a>
-                    <a href="#features" class="btn btn-secondary">
-                        <i class="fas fa-star"></i> Возможности 2025
-                    </a>
-                    <a href="https://t.me/AnfyenceHack" target="_blank" class="btn btn-telegram">
-                        <i class="fab fa-telegram"></i> Наш Telegram
-                    </a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="christmas-tree">
-                    <div class="tree"></div>
-                    <div class="tree-decoration d1"></div>
-                    <div class="tree-decoration d2"></div>
-                    <div class="tree-decoration d3"></div>
-                    <div class="tree-decoration d4"></div>
-                    <div class="star"></div>
-                    <div class="tree-decoration d5"></div>
-                    <div class="tree-decoration d6"></div>
-                </div>
-                <div class="client-preview">
-                    <div class="preview-window">
-                        <div class="preview-title">AnfyenceClient v3.0</div>
-                        <div class="preview-content">
-                            <div class="preview-item">✓ Оптимизация FPS</div>
-                            <div class="preview-item">✓ Новые скины 2025</div>
-                            <div class="preview-item">✓ Улучшенный AI</div>
-                            <div class="preview-item">✓ Анти-чит система</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="features" class="features">
-            <h2 class="section-title">Новые возможности <span class="highlight">2025</span></h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>Улучшенный FPS</h3>
-                    <p>Оптимизация производительности до 200% по сравнению с 2024</p>
-                    <span class="feature-badge">NEW</span>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Защита от банов</h3>
-                    <p>Обновленная система обхода античитов</p>
-                    <span class="feature-badge">2025</span>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3>Эксклюзивные скины</h3>
-                    <p>Новые скины и плащи только для версии 2025</p>
-                    <span class="feature-badge">HOT</span>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>Умный AI</h3>
-                    <p>Искусственный интеллект для помощи в игре</p>
-                    <span class="feature-badge">AI</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="social-section">
-            <div class="social-cards">
-                <div class="social-card telegram-card">
-                    <div class="social-icon">
-                        <i class="fab fa-telegram"></i>
-                    </div>
-                    <h3>Telegram канал</h3>
-                    <p>Самые свежие новости, обновления и поддержка</p>
-                    <a href="https://t.me/AnfyenceHack" target="_blank" class="btn btn-telegram">
-                        <i class="fab fa-telegram"></i> @AnfyenceHack
-                    </a>
-                    <div class="social-stats">
-                        <span><i class="fas fa-users"></i> 5000+ участников</span>
-                    </div>
-                </div>
-                
-                <div class="social-card discord-card">
-                    <div class="social-icon">
-                        <i class="fab fa-discord"></i>
-                    </div>
-                    <h3>Discord сообщество</h3>
-                    <p>Общение, помощь и совместные игры</p>
-                    <a href="https://discord.gg/wbJVMgsb" target="_blank" class="btn btn-discord">
-                        <i class="fab fa-discord"></i> Discord Server
-                    </a>
-                    <div class="social-stats">
-                        <span><i class="fas fa-users"></i> 3000+ участников</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="download" class="download">
-            <h2 class="section-title">Скачать <span class="highlight">AnfyenceClient 2025</span></h2>
-            <div class="download-card">
-                <div class="download-info">
-                    <h3>Версия 3.0 (2025)</h3>
-                    <ul class="download-list">
-                        <li><i class="fas fa-check"></i> Полная поддержка версии 2025</li>
-                        <li><i class="fas fa-check"></i> Улучшенная оптимизация FPS</li>
-                        <li><i class="fas fa-check"></i> Новые функции и моды</li>
-                        <li><i class="fas fa-check"></i> Без вирусов и майнеров</li>
-                        <li><i class="fas fa-check"></i> Поддержка Windows 10/11/12</li>
-                        <li><i class="fas fa-check"></i> Регулярные обновления</li>
-                    </ul>
-                    <div class="download-stats">
-                        <div class="stat">
-                            <i class="fas fa-download"></i>
-                            <span>Скачали: 102,847</span>
-                        </div>
-                        <div class="stat">
-                            <i class="fas fa-calendar"></i>
-                            <span>Обновлено: 25.12.2024</span>
-                        </div>
-                        <div class="stat">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Безопасно: 100%</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="download-action">
-                    <div class="version-badge">v3.0 2025</div>
-                    <button id="download-btn" class="btn btn-primary btn-large">
-                        <i class="fas fa-download"></i> Скачать сейчас (156 MB)
-                    </button>
-                    <div class="download-options">
-                        <a href="#" class="download-option">
-                            <i class="fas fa-windows"></i> Windows
-                        </a>
-                        <a href="#" class="download-option">
-                            <i class="fas fa-archive"></i> Zip архив
-                        </a>
-                        <a href="#" class="download-option">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                    </div>
-                    <div class="security-info">
-                        <div class="security-badge">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Проверено 15+ антивирусами</span>
-                        </div>
-                        <div class="virus-total">
-                            <i class="fas fa-virus"></i>
-                            <span>0/67 на VirusTotal</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="instructions">
-            <h2 class="section-title">Установка за <span class="highlight">3 минуты</span></h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-icon">
-                        <i class="fas fa-download"></i>
-                    </div>
-                    <h3>Скачайте клиент</h3>
-                    <p>Нажмите кнопку скачивания выше</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Установите</h3>
-                    <p>Запустите установщик и следуйте инструкциям</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-icon">
-                        <i class="fas fa-play"></i>
-                    </div>
-                    <h3>Запустите игру</h3>
-                    <p>Запустите через новый лаунчер</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div class="step-icon">
+                    <div class="logo-icon">
                         <i class="fas fa-gamepad"></i>
                     </div>
-                    <h3>Наслаждайтесь!</h3>
-                    <p>Играйте с новыми функциями 2025</p>
+                    <div class="logo-text">
+                        <h1>Anfyence<span class="logo-accent">Client</span></h1>
+                        <p class="logo-subtitle">Игровой клиент нового поколения</p>
+                    </div>
                 </div>
-            </div>
-        </section>
-
-        <section class="support">
-            <h2 class="section-title">Нужна <span class="highlight">помощь</span>?</h2>
-            <div class="support-options">
-                <div class="support-option">
-                    <i class="fab fa-telegram"></i>
-                    <h3>Telegram поддержка</h3>
-                    <p>Быстрые ответы в нашем канале</p>
-                    <a href="https://t.me/AnfyenceHack" target="_blank" class="btn btn-telegram">
-                        <i class="fab fa-telegram"></i> Написать
+                
+                <div class="social-buttons">
+                    <a href="https://t.me/AnfyenceHack" target="_blank" class="social-btn telegram-btn">
+                        <i class="fab fa-telegram"></i>
+                        <span>Telegram</span>
                     </a>
-                </div>
-                <div class="support-option">
-                    <i class="fab fa-discord"></i>
-                    <h3>Discord сервер</h3>
-                    <p>Помощь в реальном времени</p>
-                    <a href="https://discord.gg/wbJVMgsb" target="_blank" class="btn btn-discord">
-                        <i class="fab fa-discord"></i> Присоединиться
-                    </a>
-                </div>
-                <div class="support-option">
-                    <i class="fas fa-question-circle"></i>
-                    <h3>FAQ</h3>
-                    <p>Ответы на частые вопросы</p>
-                    <a href="#faq" class="btn btn-secondary">
-                        <i class="fas fa-book"></i> Читать FAQ
+                    <a href="https://discord.gg/wbJVMgsb" target="_blank" class="social-btn discord-btn">
+                        <i class="fab fa-discord"></i>
+                        <span>Discord</span>
                     </a>
                 </div>
             </div>
-        </section>
-    </main>
+        </header>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h3>AnfyenceClient</h3>
-                    <p>Новогодняя версия 2025</p>
-                    <div class="footer-year">2025</div>
-                </div>
-                <div class="footer-links">
-                    <h4>Социальные сети</h4>
-                    <div class="social-links">
-                        <a href="https://t.me/AnfyenceHack" target="_blank">
-                            <i class="fab fa-telegram"></i> Telegram
+        <!-- Основной контент -->
+        <main class="main-content">
+            <!-- Герой секция -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <div class="year-badge">
+                        <span>2025</span>
+                        <div class="badge-glow"></div>
+                    </div>
+                    
+                    <h2 class="hero-title">
+                        <span class="hero-main-title">AnfyenceClient</span>
+                        <span class="hero-subtitle">Новогоднее обновление с эксклюзивными функциями для лучшего геймплея</span>
+                    </h2>
+
+                    <!-- Статистика -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">2025</div>
+                            <div class="stat-label">Версия</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">50K+</div>
+                            <div class="stat-label">Пользователей</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">100K+</div>
+                            <div class="stat-label">Скачиваний</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">4.8</div>
+                            <div class="stat-label">Рейтинг</div>
+                        </div>
+                    </div>
+
+                    <!-- Таймер -->
+                    <div class="countdown-section">
+                        <h3 class="countdown-title">До Нового 2025 Года осталось:</h3>
+                        <div class="countdown-timer">
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="days">25</div>
+                                <div class="countdown-label">Дней</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="hours">11</div>
+                                <div class="countdown-label">Часов</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="minutes">13</div>
+                                <div class="countdown-label">Минут</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="seconds">55</div>
+                                <div class="countdown-label">Секунд</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Кнопки действий -->
+                    <div class="action-buttons">
+                        <a href="#download" class="btn btn-primary btn-large">
+                            <i class="fas fa-download"></i>
+                            <span>Скачать бесплатно</span>
                         </a>
-                        <a href="https://discord.gg/wbJVMgsb" target="_blank">
-                            <i class="fab fa-discord"></i> Discord
+                        <a href="#features" class="btn btn-secondary btn-large">
+                            <i class="fas fa-star"></i>
+                            <span>Возможности 2025</span>
                         </a>
                     </div>
                 </div>
-                <div class="footer-info">
-                    <h4>Информация</h4>
-                    <a href="#privacy">Политика конфиденциальности</a>
-                    <a href="#terms">Условия использования</a>
-                    <a href="#disclaimer">Отказ от ответственности</a>
+
+                <!-- Превью клиента -->
+                <div class="client-preview">
+                    <div class="preview-card">
+                        <div class="preview-header">
+                            <div class="preview-title">AnfyenceClient v3.0</div>
+                            <div class="preview-badge">NEW 2025</div>
+                        </div>
+                        <div class="preview-features">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Оптимизация FPS</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Новые скины 2025</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Улучшенный AI</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Анти-чит система</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Праздничные текстуры</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Безопасный запуск</span>
+                            </div>
+                        </div>
+                        <div class="preview-footer">
+                            <div class="preview-size">Размер: 156 MB</div>
+                            <div class="preview-version">v3.0.2025</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="footer-copyright">
-                    <p>© 2024-2025 AnfyenceClient. Все права защищены.</p>
-                    <p>AnfyenceClient - неофициальный клиент для образовательных целей.</p>
-                    <p>Не связан с Mojang, Microsoft или другими компаниями.</p>
+            </section>
+
+            <!-- Особенности -->
+            <section id="features" class="features-section">
+                <h2 class="section-title">Новые возможности <span class="highlight">2025</span></h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3 class="feature-title">Максимальный FPS</h3>
+                        <p class="feature-description">Оптимизация производительности до 200% по сравнению с предыдущими версиями</p>
+                        <div class="feature-badge">NEW</div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Защита от банов</h3>
+                        <p class="feature-description">Улучшенная система обхода античитов с маскировкой трафика</p>
+                        <div class="feature-badge">2025</div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3 class="feature-title">Эксклюзивные скины</h3>
+                        <p class="feature-description">Новогодние скины, плащи и текстуры только для версии 2025</p>
+                        <div class="feature-badge">EXCLUSIVE</div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="feature-title">Умный помощник</h3>
+                        <p class="feature-description">ИИ для автоматизации рутинных задач и помощи в игре</p>
+                        <div class="feature-badge">AI</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Скачивание -->
+            <section id="download" class="download-section">
+                <div class="download-card">
+                    <div class="download-info">
+                        <h3 class="download-title">AnfyenceClient v3.0 (2025)</h3>
+                        <div class="download-description">
+                            <p>Полностью обновленная версия с новогодними функциями и улучшениями производительности</p>
+                        </div>
+                        
+                        <div class="download-details">
+                            <div class="detail-item">
+                                <i class="fas fa-check"></i>
+                                <span>Совместимость с Windows 10/11</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-check"></i>
+                                <span>Без вирусов и майнеров</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-check"></i>
+                                <span>Регулярные обновления</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-check"></i>
+                                <span>Техническая поддержка</span>
+                            </div>
+                        </div>
+
+                        <div class="download-stats">
+                            <div class="stat">
+                                <i class="fas fa-download"></i>
+                                <span>102,847 скачиваний</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-calendar"></i>
+                                <span>Обновлено: 25.12.2024</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Безопасность: 100%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="download-actions">
+                        <div class="version-display">
+                            <div class="version-number">v3.0.2025</div>
+                            <div class="version-year">Новогоднее издание</div>
+                        </div>
+
+                        <button id="download-main" class="btn btn-primary btn-xlarge">
+                            <i class="fas fa-download"></i>
+                            <span>Скачать сейчас (156 MB)</span>
+                        </button>
+
+                        <div class="download-variants">
+                            <div class="variant-title">Другие варианты:</div>
+                            <div class="variant-buttons">
+                                <button class="variant-btn">
+                                    <i class="fas fa-windows"></i>
+                                    <span>Windows</span>
+                                </button>
+                                <button class="variant-btn">
+                                    <i class="fas fa-archive"></i>
+                                    <span>ZIP архив</span>
+                                </button>
+                                <button class="variant-btn">
+                                    <i class="fab fa-github"></i>
+                                    <span>GitHub</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="security-info">
+                            <div class="security-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Проверено 15+ антивирусами</span>
+                            </div>
+                            <div class="security-item">
+                                <i class="fas fa-virus"></i>
+                                <span>0/67 детектов на VirusTotal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Социальные сети -->
+            <section class="social-section">
+                <h2 class="section-title">Присоединяйтесь к сообществу</h2>
+                
+                <div class="social-cards">
+                    <div class="social-card telegram-card">
+                        <div class="social-card-header">
+                            <div class="social-icon">
+                                <i class="fab fa-telegram"></i>
+                            </div>
+                            <h3 class="social-title">Telegram канал</h3>
+                        </div>
+                        
+                        <div class="social-content">
+                            <p class="social-description">
+                                Самые свежие новости, обновления клиента, анонсы и помощь от сообщества
+                            </p>
+                            
+                            <div class="social-stats">
+                                <div class="social-stat">
+                                    <i class="fas fa-users"></i>
+                                    <span>5,000+ участников</span>
+                                </div>
+                                <div class="social-stat">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>Мгновенные уведомления</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="https://t.me/AnfyenceHack" target="_blank" class="btn btn-telegram">
+                            <i class="fab fa-telegram"></i>
+                            <span>Перейти в @AnfyenceHack</span>
+                        </a>
+                    </div>
+
+                    <div class="social-card discord-card">
+                        <div class="social-card-header">
+                            <div class="social-icon">
+                                <i class="fab fa-discord"></i>
+                            </div>
+                            <h3 class="social-title">Discord сервер</h3>
+                        </div>
+                        
+                        <div class="social-content">
+                            <p class="social-description">
+                                Общение с игроками, совместные игры, помощь модераторов и голосовые каналы
+                            </p>
+                            
+                            <div class="social-stats">
+                                <div class="social-stat">
+                                    <i class="fas fa-users"></i>
+                                    <span>3,000+ участников</span>
+                                </div>
+                                <div class="social-stat">
+                                    <i class="fas fa-headset"></i>
+                                    <span>Онлайн поддержка 24/7</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="https://discord.gg/wbJVMgsb" target="_blank" class="btn btn-discord">
+                            <i class="fab fa-discord"></i>
+                            <span>Присоединиться к серверу</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Подвал -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="footer-logo-text">
+                            <h3>AnfyenceClient</h3>
+                            <p>Новогодняя версия 2025</p>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-copyright">
+                        <p>© 2024-2025 AnfyenceClient. Все права защищены.</p>
+                        <p>Неофициальный клиент для образовательных целей.</p>
+                    </div>
+                </div>
+
+                <div class="footer-right">
+                    <div class="footer-links">
+                        <a href="#privacy" class="footer-link">Политика конфиденциальности</a>
+                        <a href="#terms" class="footer-link">Условия использования</a>
+                        <a href="#faq" class="footer-link">Частые вопросы</a>
+                        <a href="#contact" class="footer-link">Контакты</a>
+                    </div>
+
+                    <div class="footer-social">
+                        <a href="https://t.me/AnfyenceHack" target="_blank" class="footer-social-link">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://discord.gg/wbJVMgsb" target="_blank" class="footer-social-link">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
-    <div class="christmas-lights"></div>
-
-    <!-- Модальное окно для скачивания -->
+    <!-- Модальное окно скачивания -->
     <div id="downloadModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2><i class="fas fa-gift"></i> Скачать AnfyenceClient 2025</h2>
-            <div class="modal-message">
-                <p>Скачивание начнется автоматически через 3 секунды...</p>
-                <div class="download-progress">
-                    <div class="progress-bar"></div>
-                </div>
-                <p class="modal-note">Если скачивание не началось, <a href="#" id="direct-download">нажмите сюда</a></p>
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-gift"></i>
+                    <span>Скачивание AnfyenceClient 2025</span>
+                </h3>
+                <button class="modal-close">&times;</button>
             </div>
-            <div class="modal-warning">
-                <i class="fas fa-exclamation-triangle"></i>
-                <p>Отключите антивирус перед установкой (ложное срабатывание)</p>
+
+            <div class="modal-body">
+                <div class="download-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="progress-text">Подготовка скачивания...</div>
+                </div>
+
+                <div class="modal-message">
+                    <p>Ваш клиент готов к скачиванию! Начнется автоматически через <span id="countdown">3</span> секунд...</p>
+                </div>
+
+                <div class="modal-actions">
+                    <button id="directDownload" class="btn btn-primary">
+                        <i class="fas fa-download"></i>
+                        <span>Скачать сейчас</span>
+                    </button>
+                    <button class="btn btn-secondary modal-cancel">
+                        <span>Отмена</span>
+                    </button>
+                </div>
+
+                <div class="modal-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Временно отключите антивирус перед установкой (ложное срабатывание)</p>
+                </div>
             </div>
         </div>
     </div>
