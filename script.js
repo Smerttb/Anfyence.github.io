@@ -1,8 +1,7 @@
-// Обратный отсчет до Нового Года
+// Обратный отсчет до Нового 2025 Года
 function updateCountdown() {
     const now = new Date();
-    const nextYear = now.getFullYear() + 1;
-    const newYear = new Date(`January 1, ${nextYear} 00:00:00`);
+    const newYear = new Date('January 1, 2025 00:00:00');
     const diff = newYear - now;
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -15,153 +14,230 @@ function updateCountdown() {
     document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
     document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
 
-    // Добавляем эффект мигания в последние 10 секунд каждого часа
-    if (minutes === 59 && seconds >= 50) {
-        document.getElementById('seconds').style.animation = 'pulse 0.5s infinite';
-    } else {
-        document.getElementById('seconds').style.animation = '';
+    // Специальные эффекты
+    if (days === 0) {
+        document.querySelector('.christmas-countdown').style.animation = 'pulse 1s infinite';
     }
 }
 
-// Праздничные конфетти
-function createConfetti() {
-    const confettiCount = 50;
-    const container = document.querySelector('.snowflakes');
-    
-    for (let i = 0; i < confettiCount; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        confetti.style.cssText = `
-            position: absolute;
-            width: ${Math.random() * 10 + 5}px;
-            height: ${Math.random() * 10 + 5}px;
-            background: ${['#ff4757', '#ffdd59', '#70a1ff', '#2ecc71'][Math.floor(Math.random() * 4)]};
-            top: -20px;
-            left: ${Math.random() * 100}vw;
-            border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
-            opacity: ${Math.random() * 0.7 + 0.3};
-            animation: fallConfetti ${Math.random() * 5 + 5}s linear infinite;
-            animation-delay: ${Math.random() * 5}s;
-        `;
-        container.appendChild(confetti);
-    }
-}
+// Модальное окно для скачивания
+function setupDownloadModal() {
+    const downloadBtn = document.getElementById('download-btn');
+    const modal = document.getElementById('downloadModal');
+    const closeBtn = document.querySelector('.close-modal');
+    const directDownload = document.getElementById('direct-download');
+    const progressBar = document.querySelector('.progress-bar');
 
-// Анимация падения конфетти
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fallConfetti {
-        0% {
-            transform: translateY(-100px) rotate(0deg) translateX(0);
-        }
-        100% {
-            transform: translateY(100vh) rotate(360deg) translateX(${Math.random() * 100 - 50}px);
-        }
-    }
-    
-    @keyframes pulse {
-        0% { opacity: 1; }
-        50% { opacity: 0.5; }
-        100% { opacity: 1; }
-    }
-`;
-document.head.appendChild(style);
-
-// Случайные новогодние сообщения
-const messages = [
-    "С Новым Годом! 🎄",
-    "Пусть сбываются все мечты! ✨",
-    "Удачи в играх! 🎮",
-    "AnfyenceClient желает веселья! 🎉",
-    "Готовьтесь к празднику! 🎁"
-];
-
-function showRandomMessage() {
-    const message = messages[Math.floor(Math.random() * messages.length)];
-    console.log(`🎅 ${message}`);
-}
-
-// Скачивание файла
-function setupDownloadButton() {
-    const downloadBtn = document.querySelector('.btn-primary.btn-large');
-    
     downloadBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        
-        // Анимация нажатия
-        this.style.transform = 'scale(0.95)';
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+
+        // Анимация прогресса
+        progressBar.style.animation = 'progress 3s linear forwards';
+
+        // Запуск скачивания через 3 секунды
         setTimeout(() => {
-            this.style.transform = '';
-        }, 150);
-        
-        // Показываем сообщение
-        const originalText = this.innerHTML;
-        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Скачивание...';
-        
-        setTimeout(() => {
-            this.innerHTML = originalText;
-            alert('Скачивание началось! Проверьте папку "Загрузки".');
+            // Здесь будет реальная ссылка для скачивания
+            // window.location.href = 'ссылка_на_клиент';
             
-            // Здесь можно добавить реальную ссылку для скачивания
-            // window.location.href = 'ссылка_на_файл';
-        }, 1500);
+            // Временное сообщение
+            alert('Скачивание началось! Проверьте папку "Загрузки".');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, 3000);
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        progressBar.style.animation = 'none';
+    });
+
+    directDownload.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Прямая ссылка для скачивания
+        window.location.href = 'https://example.com/AnfyenceClient2025.exe';
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            progressBar.style.animation = 'none';
+        }
     });
 }
 
-// Праздничные звуки при наведении
-function setupHoverSounds() {
-    const buttons = document.querySelectorAll('.btn');
+// Социальные счетчики (анимация)
+function animateSocialCounters() {
+    const counters = document.querySelectorAll('.social-stats span');
     
-    buttons.forEach(button => {
-        button.addEventListener('mouseenter', () => {
-            // Можно добавить звуковой эффект
-            console.log('🔔 Праздничный звук!');
+    counters.forEach(counter => {
+        const target = parseInt(counter.textContent.replace(/\D/g, ''));
+        let current = 0;
+        const increment = target / 50;
+        
+        const updateCounter = () => {
+            if (current < target) {
+                current += increment;
+                counter.textContent = counter.textContent.replace(/\d+/, Math.floor(current));
+                setTimeout(updateCounter, 20);
+            } else {
+                counter.textContent = counter.textContent.replace(/\d+/, target);
+            }
+        };
+        
+        updateCounter();
+    });
+}
+
+// Эффект параллакса для 2025 элементов
+function setup2025Effects() {
+    const yearElements = document.querySelectorAll('.year-2025, .year-badge');
+    
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        
+        yearElements.forEach((el, index) => {
+            const speed = 0.3 + (index * 0.1);
+            el.style.transform = `translateY(${scrolled * speed}px)`;
         });
     });
 }
 
-// Эффект мерцания для элементов
-function setupTwinkleEffects() {
-    const elements = document.querySelectorAll('.feature-icon, .step-number');
+// Новогодние уведомления
+function showNewYearNotifications() {
+    const messages = [
+        "🎉 AnfyenceClient 2025 готов к празднику!",
+        "✨ Новые функции ждут вас!",
+        "🎮 Улучшенный геймплей в 2025",
+        "🎁 Эксклюзивные скины для подписчиков",
+        "⚡ Оптимизация производительности +200%"
+    ];
     
-    elements.forEach(el => {
-        setInterval(() => {
-            el.style.boxShadow = `0 0 ${Math.random() * 20 + 10}px ${el.style.backgroundColor}`;
-        }, 1000);
+    let index = 0;
+    
+    setInterval(() => {
+        if (document.visibilityState === 'visible') {
+            console.log(`📢 ${messages[index]}`);
+            showToast(messages[index]);
+            index = (index + 1) % messages.length;
+        }
+    }, 30000);
+}
+
+// Toast-уведомления
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `
+        <i class="fas fa-bell"></i>
+        <span>${message}</span>
+    `;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(0, 255, 136, 0.9);
+        color: #000;
+        padding: 15px 25px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+        font-weight: bold;
+        backdrop-filter: blur(10px);
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+    }, 5000);
+}
+
+// Добавляем CSS для toast
+const toastStyle = document.createElement('style');
+toastStyle.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(toastStyle);
+
+// Проверка года
+function checkYear() {
+    const now = new Date();
+    if (now.getFullYear() >= 2025) {
+        document.querySelector('.year-2025').textContent = '2025 ✓';
+        document.querySelector('.year-2025').style.color = '#00ff88';
+    }
+}
+
+// Telegram/Discord статистика
+function updateSocialStats() {
+    // Можно добавить реальную статистику через API
+    const stats = {
+        telegram: 5000,
+        discord: 3000,
+        downloads: 102847
+    };
+    
+    // Обновляем числа на странице
+    document.querySelectorAll('.social-stats span').forEach(span => {
+        if (span.textContent.includes('участников')) {
+            const platform = span.closest('.social-card').classList.contains('telegram-card') ? 'telegram' : 'discord';
+            span.innerHTML = `<i class="fas fa-users"></i> ${stats[platform].toLocaleString()}+ участников`;
+        }
     });
 }
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', function() {
-    // Запускаем обратный отсчет
+    console.log('%c🎄 AnfyenceClient 2025 запущен! 🎄', 'color: #00ff88; font-size: 20px; font-weight: bold;');
+    console.log('%c📱 Telegram: https://t.me/AnfyenceHack', 'color: #0088cc; font-size: 14px;');
+    console.log('%c🎮 Discord: https://discord.gg/wbJVMgsb', 'color: #5865F2; font-size: 14px;');
+    
+    // Основные функции
     updateCountdown();
     setInterval(updateCountdown, 1000);
     
-    // Создаем конфетти
-    createConfetti();
+    setupDownloadModal();
+    animateSocialCounters();
+    setup2025Effects();
+    checkYear();
+    updateSocialStats();
     
-    // Показываем случайное сообщение
-    showRandomMessage();
-    setInterval(showRandomMessage, 30000);
+    // Запускаем уведомления через 5 секунд
+    setTimeout(showNewYearNotifications, 5000);
     
-    // Настраиваем кнопки
-    setupDownloadButton();
-    setupHoverSounds();
-    setupTwinkleEffects();
+    // Эффект печатания для заголовка
+    typeWriterEffect();
     
-    // Добавляем эффект параллакса для снежинок
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const snowflakes = document.querySelector('.snowflakes');
-        snowflakes.style.transform = `translateY(${scrolled * 0.5}px)`;
+    // Анимация для новогодних элементов
+    createSnowflakes();
+    
+    // Добавляем эффект при наведении на социальные кнопки
+    document.querySelectorAll('.social-btn').forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+            btn.style.transform = 'scale(1.1) rotate(5deg)';
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'scale(1) rotate(0deg)';
+        });
     });
-    
-    // Новогоднее приветствие
-    console.log('%c🎄 С Новым Годом от AnfyenceClient! 🎄', 'color: #ff4757; font-size: 18px; font-weight: bold;');
-    console.log('%c✨ Пусть этот год принесет много побед и веселья! ✨', 'color: #70a1ff; font-size: 14px;');
 });
 
-// Эффект печатания для заголовка (опционально)
 function typeWriterEffect() {
     const title = document.querySelector('.hero-title');
     const text = title.textContent;
@@ -176,9 +252,42 @@ function typeWriterEffect() {
         }
     }
     
-    // Запускаем через 1 секунду после загрузки
     setTimeout(type, 1000);
 }
 
-// Добавляем в инициализацию
-typeWriterEffect();
+function createSnowflakes() {
+    const container = document.querySelector('.snowflakes');
+    
+    for (let i = 0; i < 100; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.style.cssText = `
+            position: absolute;
+            width: ${Math.random() * 10 + 5}px;
+            height: ${Math.random() * 10 + 5}px;
+            background: white;
+            border-radius: 50%;
+            top: -20px;
+            left: ${Math.random() * 100}vw;
+            opacity: ${Math.random() * 0.7 + 0.3};
+            animation: fall ${Math.random() * 10 + 5}s linear infinite;
+            animation-delay: ${Math.random() * 5}s;
+            filter: blur(${Math.random() * 2}px);
+        `;
+        container.appendChild(snowflake);
+    }
+}
+
+// Добавляем анимацию падения
+const snowStyle = document.createElement('style');
+snowStyle.textContent = `
+    @keyframes fall {
+        0% {
+            transform: translateY(-100px) rotate(0deg) translateX(0);
+        }
+        100% {
+            transform: translateY(100vh) rotate(360deg) translateX(${Math.random() * 100 - 50}px);
+        }
+    }
+`;
+document.head.appendChild(snowStyle);
