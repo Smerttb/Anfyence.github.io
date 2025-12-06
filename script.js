@@ -1,245 +1,430 @@
-// Обратный отсчет до Нового 2025 Года
-function updateCountdown() {
-    const now = new Date();
-    const newYear = new Date('January 1, 2025 00:00:00');
-    const diff = newYear - now;
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('%c🎮 AnfyenceClient 2025 загружен!', 'color: #6366f1; font-size: 16px; font-weight: bold;');
+    console.log('%c📱 Telegram: @AnfyenceHack', 'color: #0088cc;');
+    console.log('%c🎮 Discord: https://discord.gg/wbJVMgsb', 'color: #5865F2;');
+    
+    // Инициализация функций
+    initCountdown();
+    initDownloadButton();
+    initModal();
+    initSocialButtons();
+    initAnimations();
+    initConfetti();
+});
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-    document.getElementById('days').textContent = days.toString().padStart(2, '0');
-    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-
-    // Специальные эффекты
-    if (days === 0) {
-        document.querySelector('.christmas-countdown').style.animation = 'pulse 1s infinite';
+// Обратный отсчет до Нового 2025 года
+function initCountdown() {
+    const targetDate = new Date('January 1, 2025 00:00:00').getTime();
+    
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        
+        if (distance < 0) {
+            // Новый год наступил
+            document.getElementById('days').textContent = '00';
+            document.getElementById('hours').textContent = '00';
+            document.getElementById('minutes').textContent = '00';
+            document.getElementById('seconds').textContent = '00';
+            return;
+        }
+        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        document.getElementById('days').textContent = days.toString().padStart(2, '0');
+        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        
+        // Анимация при смене секунд
+        if (seconds % 5 === 0) {
+            animateCountdownItem('seconds');
+        }
     }
+    
+    // Обновляем каждую секунду
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 }
 
-// Модальное окно для скачивания
-function setupDownloadModal() {
-    const downloadBtn = document.getElementById('download-btn');
-    const modal = document.getElementById('downloadModal');
-    const closeBtn = document.querySelector('.close-modal');
-    const directDownload = document.getElementById('direct-download');
-    const progressBar = document.querySelector('.progress-bar');
+// Анимация элемента счетчика
+function animateCountdownItem(elementId) {
+    const element = document.getElementById(elementId);
+    element.style.transform = 'scale(1.2)';
+    element.style.color = '#10b981';
+    
+    setTimeout(() => {
+        element.style.transform = 'scale(1)';
+        element.style.color = '';
+    }, 300);
+}
 
-    downloadBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-
-        // Анимация прогресса
-        progressBar.style.animation = 'progress 3s linear forwards';
-
-        // Запуск скачивания через 3 секунды
-        setTimeout(() => {
-            // Здесь будет реальная ссылка для скачивания
-            // window.location.href = 'ссылка_на_клиент';
-            
-            // Временное сообщение
-            alert('Скачивание началось! Проверьте папку "Загрузки".');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }, 3000);
+// Кнопка скачивания
+function initDownloadButton() {
+    const downloadBtn = document.getElementById('download-main');
+    const variantBtns = document.querySelectorAll('.variant-btn');
+    
+    downloadBtn.addEventListener('click', function() {
+        showDownloadModal();
     });
+    
+    variantBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const platform = this.querySelector('span').textContent;
+            showToast(`Подготовка скачивания для ${platform}...`);
+        });
+    });
+}
 
-    closeBtn.addEventListener('click', () => {
+// Модальное окно скачивания
+function initModal() {
+    const modal = document.getElementById('downloadModal');
+    const closeBtn = document.querySelector('.modal-close');
+    const cancelBtn = document.querySelector('.modal-cancel');
+    const directDownload = document.getElementById('directDownload');
+    
+    function closeModal() {
         modal.style.display = 'none';
         document.body.style.overflow = 'auto';
-        progressBar.style.animation = 'none';
+        const progressFill = document.querySelector('.progress-fill');
+        progressFill.style.width = '0%';
+        clearInterval(countdownInterval);
+    }
+    
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+    
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal();
     });
-
-    directDownload.addEventListener('click', (e) => {
-        e.preventDefault();
-        // Прямая ссылка для скачивания
-        window.location.href = 'https://example.com/AnfyenceClient2025.exe';
+    
+    directDownload.addEventListener('click', function() {
+        startDownload();
+        closeModal();
     });
+}
 
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            progressBar.style.animation = 'none';
+// Показать модальное окно скачивания
+function showDownloadModal() {
+    const modal = document.getElementById('downloadModal');
+    const progressFill = document.querySelector('.progress-fill');
+    const countdownElement = document.getElementById('countdown');
+    
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    
+    // Сброс прогресса
+    progressFill.style.transition = 'none';
+    progressFill.style.width = '0%';
+    
+    // Анимация прогресса
+    setTimeout(() => {
+        progressFill.style.transition = 'width 3s linear';
+        progressFill.style.width = '100%';
+    }, 10);
+    
+    // Обратный отсчет 3 секунды
+    let countdown = 3;
+    countdownElement.textContent = countdown;
+    
+    const countdownInterval = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = countdown;
+        
+        if (countdown <= 0) {
+            clearInterval(countdownInterval);
+            startDownload();
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 1000);
+        }
+    }, 1000);
+}
+
+// Запуск скачивания
+function startDownload() {
+    showToast('Скачивание началось! Проверьте папку "Загрузки".');
+    
+    // В реальном проекте здесь будет ссылка на файл
+    // window.location.href = 'https://example.com/AnfyenceClient2025.exe';
+    
+    // Для демо - имитация скачивания
+    simulateDownload();
+}
+
+// Имитация скачивания (для демо)
+function simulateDownload() {
+    const downloadEvent = new CustomEvent('downloadStarted', {
+        detail: {
+            filename: 'AnfyenceClient_v3.0_2025.exe',
+            size: '156 MB'
         }
     });
+    window.dispatchEvent(downloadEvent);
+    
+    // Обновляем статистику
+    updateDownloadStats();
 }
 
-// Социальные счетчики (анимация)
-function animateSocialCounters() {
-    const counters = document.querySelectorAll('.social-stats span');
+// Обновление статистики скачиваний
+function updateDownloadStats() {
+    const statsElement = document.querySelector('.download-stats .stat:nth-child(1) span');
+    const currentDownloads = parseInt(statsElement.textContent.replace(/\D/g, '')) || 102847;
+    const newDownloads = currentDownloads + 1;
     
-    counters.forEach(counter => {
-        const target = parseInt(counter.textContent.replace(/\D/g, ''));
-        let current = 0;
-        const increment = target / 50;
+    // Анимация увеличения числа
+    animateNumber(statsElement, currentDownloads, newDownloads, 500);
+    
+    // Сохраняем в localStorage для демо
+    localStorage.setItem('anfyenceDownloads', newDownloads);
+}
+
+// Анимация числа
+function animateNumber(element, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        element.textContent = value.toLocaleString() + ' скачиваний';
         
-        const updateCounter = () => {
-            if (current < target) {
-                current += increment;
-                counter.textContent = counter.textContent.replace(/\d+/, Math.floor(current));
-                setTimeout(updateCounter, 20);
-            } else {
-                counter.textContent = counter.textContent.replace(/\d+/, target);
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
+}
+
+// Социальные кнопки
+function initSocialButtons() {
+    const socialButtons = document.querySelectorAll('.social-btn, .btn-telegram, .btn-discord');
+    
+    socialButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            if (this.getAttribute('href') === '#') {
+                e.preventDefault();
+                showToast('Функция в разработке');
             }
-        };
-        
-        updateCounter();
+        });
     });
 }
 
-// Эффект параллакса для 2025 элементов
-function setup2025Effects() {
-    const yearElements = document.querySelectorAll('.year-2025, .year-badge');
+// Анимации элементов
+function initAnimations() {
+    // Анимация при скролле
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
     
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    // Наблюдаем за элементами
+    document.querySelectorAll('.feature-card, .social-card, .stat-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+    
+    // Параллакс эффект
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.bg-circle');
         
-        yearElements.forEach((el, index) => {
+        parallaxElements.forEach((el, index) => {
             const speed = 0.3 + (index * 0.1);
             el.style.transform = `translateY(${scrolled * speed}px)`;
         });
     });
 }
 
-// Новогодние уведомления
-function showNewYearNotifications() {
-    const messages = [
-        "🎉 AnfyenceClient 2025 готов к празднику!",
-        "✨ Новые функции ждут вас!",
-        "🎮 Улучшенный геймплей в 2025",
-        "🎁 Эксклюзивные скины для подписчиков",
-        "⚡ Оптимизация производительности +200%"
-    ];
+// Конфетти эффект
+function initConfetti() {
+    const confettiContainer = document.querySelector('.confetti-effect');
     
-    let index = 0;
-    
-    setInterval(() => {
-        if (document.visibilityState === 'visible') {
-            console.log(`📢 ${messages[index]}`);
-            showToast(messages[index]);
-            index = (index + 1) % messages.length;
+    // Создаем конфетти только на десктопе
+    if (window.innerWidth > 768) {
+        for (let i = 0; i < 50; i++) {
+            createConfettiPiece(confettiContainer);
         }
-    }, 30000);
+    }
 }
 
-// Toast-уведомления
-function showToast(message) {
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.innerHTML = `
-        <i class="fas fa-bell"></i>
-        <span>${message}</span>
+function createConfettiPiece(container) {
+    const piece = document.createElement('div');
+    const colors = ['#6366f1', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444'];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    
+    piece.style.cssText = `
+        position: absolute;
+        width: ${Math.random() * 10 + 5}px;
+        height: ${Math.random() * 10 + 5}px;
+        background: ${color};
+        top: -20px;
+        left: ${Math.random() * 100}vw;
+        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+        opacity: ${Math.random() * 0.7 + 0.3};
+        animation: confettiFall ${Math.random() * 10 + 5}s linear infinite;
+        animation-delay: ${Math.random() * 5}s;
     `;
+    
+    container.appendChild(piece);
+}
+
+// Добавляем стили для анимации конфетти
+const confettiStyle = document.createElement('style');
+confettiStyle.textContent = `
+    @keyframes confettiFall {
+        0% {
+            transform: translateY(-100px) rotate(0deg) translateX(0);
+        }
+        100% {
+            transform: translateY(100vh) rotate(360deg) translateX(${Math.random() * 100 - 50}px);
+        }
+    }
+`;
+document.head.appendChild(confettiStyle);
+
+// Toast уведомления
+function showToast(message, type = 'info') {
+    // Проверяем, есть ли уже активный toast
+    const existingToast = document.querySelector('.toast-notification');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = `toast-notification toast-${type}`;
+    toast.innerHTML = `
+        <i class="fas fa-${getToastIcon(type)}"></i>
+        <span>${message}</span>
+        <button class="toast-close">&times;</button>
+    `;
+    
     toast.style.cssText = `
         position: fixed;
-        bottom: 20px;
+        top: 20px;
         right: 20px;
-        background: rgba(0, 255, 136, 0.9);
-        color: #000;
-        padding: 15px 25px;
+        background: ${getToastColor(type)};
+        color: white;
+        padding: 15px 20px;
         border-radius: 10px;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         z-index: 10000;
-        animation: slideIn 0.3s ease;
-        font-weight: bold;
-        backdrop-filter: blur(10px);
+        animation: toastSlideIn 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        max-width: 350px;
     `;
     
     document.body.appendChild(toast);
     
+    // Кнопка закрытия
+    toast.querySelector('.toast-close').addEventListener('click', () => {
+        toast.remove();
+    });
+    
+    // Автоматическое закрытие через 5 секунд
     setTimeout(() => {
-        toast.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
+        if (toast.parentNode) {
+            toast.style.animation = 'toastSlideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }
     }, 5000);
 }
 
-// Добавляем CSS для toast
-const toastStyle = document.createElement('style');
-toastStyle.textContent = `
-    @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+function getToastIcon(type) {
+    const icons = {
+        'info': 'info-circle',
+        'success': 'check-circle',
+        'warning': 'exclamation-triangle',
+        'error': 'times-circle'
+    };
+    return icons[type] || 'info-circle';
+}
+
+function getToastColor(type) {
+    const colors = {
+        'info': 'linear-gradient(135deg, #6366f1, #4f46e5)',
+        'success': 'linear-gradient(135deg, #10b981, #059669)',
+        'warning': 'linear-gradient(135deg, #f59e0b, #d97706)',
+        'error': 'linear-gradient(135deg, #ef4444, #dc2626)'
+    };
+    return colors[type] || colors.info;
+}
+
+// Добавляем стили для toast
+const toastAnimationStyle = document.createElement('style');
+toastAnimationStyle.textContent = `
+    @keyframes toastSlideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
     }
     
-    @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
+    @keyframes toastSlideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+    
+    .toast-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        margin-left: auto;
+        padding: 0;
+        line-height: 1;
     }
 `;
-document.head.appendChild(toastStyle);
+document.head.appendChild(toastAnimationStyle);
 
-// Проверка года
-function checkYear() {
-    const now = new Date();
-    if (now.getFullYear() >= 2025) {
-        document.querySelector('.year-2025').textContent = '2025 ✓';
-        document.querySelector('.year-2025').style.color = '#00ff88';
-    }
-}
-
-// Telegram/Discord статистика
-function updateSocialStats() {
-    // Можно добавить реальную статистику через API
-    const stats = {
-        telegram: 5000,
-        discord: 3000,
-        downloads: 102847
-    };
-    
-    // Обновляем числа на странице
-    document.querySelectorAll('.social-stats span').forEach(span => {
-        if (span.textContent.includes('участников')) {
-            const platform = span.closest('.social-card').classList.contains('telegram-card') ? 'telegram' : 'discord';
-            span.innerHTML = `<i class="fas fa-users"></i> ${stats[platform].toLocaleString()}+ участников`;
-        }
-    });
-}
-
-// Инициализация
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('%c🎄 AnfyenceClient 2025 запущен! 🎄', 'color: #00ff88; font-size: 20px; font-weight: bold;');
-    console.log('%c📱 Telegram: https://t.me/AnfyenceHack', 'color: #0088cc; font-size: 14px;');
-    console.log('%c🎮 Discord: https://discord.gg/wbJVMgsb', 'color: #5865F2; font-size: 14px;');
-    
-    // Основные функции
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-    
-    setupDownloadModal();
-    animateSocialCounters();
-    setup2025Effects();
-    checkYear();
-    updateSocialStats();
-    
-    // Запускаем уведомления через 5 секунд
-    setTimeout(showNewYearNotifications, 5000);
-    
-    // Эффект печатания для заголовка
-    typeWriterEffect();
-    
-    // Анимация для новогодних элементов
-    createSnowflakes();
-    
-    // Добавляем эффект при наведении на социальные кнопки
-    document.querySelectorAll('.social-btn').forEach(btn => {
-        btn.addEventListener('mouseenter', () => {
-            btn.style.transform = 'scale(1.1) rotate(5deg)';
-        });
-        btn.addEventListener('mouseleave', () => {
-            btn.style.transform = 'scale(1) rotate(0deg)';
-        });
-    });
+// Обработка событий
+window.addEventListener('downloadStarted', function(e) {
+    console.log('Скачивание началось:', e.detail);
+    showToast(`Скачивание ${e.detail.filename} (${e.detail.size})`, 'success');
 });
 
-function typeWriterEffect() {
-    const title = document.querySelector('.hero-title');
+// Загрузка статистики из localStorage
+window.addEventListener('load', function() {
+    const savedDownloads = localStorage.getItem('anfyenceDownloads');
+    if (savedDownloads) {
+        const statsElement = document.querySelector('.download-stats .stat:nth-child(1) span');
+        statsElement.textContent = parseInt(savedDownloads).toLocaleString() + ' скачиваний';
+    }
+});
+
+// Эффект печатания для заголовка
+function initTypewriter() {
+    const title = document.querySelector('.hero-main-title');
+    if (!title) return;
+    
     const text = title.textContent;
     title.textContent = '';
     let i = 0;
@@ -252,42 +437,20 @@ function typeWriterEffect() {
         }
     }
     
+    // Запускаем через 1 секунду
     setTimeout(type, 1000);
 }
 
-function createSnowflakes() {
-    const container = document.querySelector('.snowflakes');
-    
-    for (let i = 0; i < 100; i++) {
-        const snowflake = document.createElement('div');
-        snowflake.className = 'snowflake';
-        snowflake.style.cssText = `
-            position: absolute;
-            width: ${Math.random() * 10 + 5}px;
-            height: ${Math.random() * 10 + 5}px;
-            background: white;
-            border-radius: 50%;
-            top: -20px;
-            left: ${Math.random() * 100}vw;
-            opacity: ${Math.random() * 0.7 + 0.3};
-            animation: fall ${Math.random() * 10 + 5}s linear infinite;
-            animation-delay: ${Math.random() * 5}s;
-            filter: blur(${Math.random() * 2}px);
-        `;
-        container.appendChild(snowflake);
-    }
-}
+// Запускаем эффект печатания
+setTimeout(initTypewriter, 500);
 
-// Добавляем анимацию падения
-const snowStyle = document.createElement('style');
-snowStyle.textContent = `
-    @keyframes fall {
-        0% {
-            transform: translateY(-100px) rotate(0deg) translateX(0);
-        }
-        100% {
-            transform: translateY(100vh) rotate(360deg) translateX(${Math.random() * 100 - 50}px);
-        }
-    }
-`;
-document.head.appendChild(snowStyle);
+// Эффект при наведении на кнопки
+document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-3px)';
+    });
+    
+    btn.addEventListener('mouseleave', function() {
+        this.style.transform = '';
+    });
+});
